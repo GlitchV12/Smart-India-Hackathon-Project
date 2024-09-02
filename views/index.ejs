@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Scheduling System</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    .card {
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .jumbotron {
+      background-color: #f8f9fa;
+      padding: 3rem 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #004085;
+    }
+    .card-icon {
+      font-size: 2rem;
+      color: #007bff;
+    }
+    .card-body {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Include Header -->
+  <%- include('partials/header') %>
+
+  <!-- Main Section -->
+  <main class="container mt-5">
+    <div class="jumbotron text-center">
+      <h1 class="display-4">Automated Bus Scheduling and Route Management</h1>
+      <p class="lead">Streamline operations, reduce errors, and enhance service reliability with our automated system.</p>
+      <a class="btn btn-primary btn-lg" href="/api/schedules" role="button">Get Started</a>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <i class="fas fa-calendar-day card-icon mb-3"></i>
+            <h5 class="card-title">Duty Scheduling</h5>
+            <p class="card-text">Manage linked and unlinked duty schedules effectively.</p>
+            <a class="btn btn-primary" href="/api/schedules">Manage Schedules</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <i class="fas fa-route card-icon mb-3"></i>
+            <h5 class="card-title">Route Management</h5>
+            <p class="card-text">Optimize routes, map new ones, and reduce congestion.</p>
+            <a class="btn btn-primary" href="/api/routes">Manage Routes</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <i class="fas fa-file-alt card-icon mb-3"></i>
+            <h5 class="card-title">Reports</h5>
+            <p class="card-text">Access detailed reports on schedules, routes, and more.</p>
+            <a class="btn btn-primary" href="#">View Reports</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Include Footer -->
+  <%- include('partials/footer') %>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

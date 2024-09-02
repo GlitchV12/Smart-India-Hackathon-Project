@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routes Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .input-group input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 30%;
+        }
+        .input-group button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .input-group button:hover {
+            background-color: #218838;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 5px;
+        }
+        #directions-panel {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #warning {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .map-icon {
+            color: #007bff;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bus Route Management</h1>
+    </header>
+    <div class="container">
+        <div class="input-group">
+            <input id="routename" type="text" placeholder="Enter route name">
+            <input id="start" type="text" placeholder="Enter start location">
+            <input id="end" type="text" placeholder="Enter end location">
+            <button onclick="calculateRoute()">
+                <i class="fas fa-route map-icon"></i> Add Route
+            </button>
+        </div>
+        <div id="map"></div>
+        <div id="directions-panel"></div>
+        <div id="warning"></div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+    <script>
+        let map, directionsService, directionsRenderer, existingRoutes = [];
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: { lat: 40.748817, lng: -73.985428 } // Default location
+            });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+            directionsRenderer.setPanel(document.getElementById('directions-panel'));
+        }
+
+        function calculateRoute() {
+            const routeName = document.getElementById('route-name').value;
+            const start = document.getElementById('start').value;
+            const end = document.getElementById('end').value;
+
+            if (!routeName || !start || !end) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            directionsService.route({
+                origin: start,
+                destination: end,
+                travelMode: 'DRIVING'
+            }, (response, status) => {
+                if (status === 'OK') {
+                    directionsRenderer.setDirections(response);
+                    const routePath = response.routes[0].overview_path;
+                    const routeCoords = routePath.map(coord => ({ lat: coord.lat(), lng: coord.lng() }));
+                    
+                    if (checkOverlap(routeCoords)) {
+                        document.getElementById('warning').innerText = 'Warning: This route overlaps with an existing route!';
+                    } else {
+                        document.getElementById('warning').innerText = '';
+                        existingRoutes.push(routeCoords);
+                        // Save routeName and routeCoords to your database or data structure
+                    }
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+
+        function checkOverlap(newRoute) {
+            for (let route of existingRoutes) {
+                for (let i = 0; i < newRoute.length - 1; i++) {
+                    for (let j = 0; j < route.length - 1; j++) {
+                        if (linesIntersect(newRoute[i], newRoute[i+1], route[j], route[j+1])) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        function linesIntersect(p1, p2, q1, q2) {
+            function ccw(a, b, c) {
+                return (c.lng - a.lng) * (b.lat - a.lat) > (b.lng - a.lng) * (c.lat - a.lat);
+            }
+            return ccw(p1, q1, q2) !== ccw(p2, q1, q2) && ccw(p1, p2, q1) !== ccw(p1, p2, q2);
+        }
+
+        window.onload = initMap;
+    </script>
+</body>
+</html>

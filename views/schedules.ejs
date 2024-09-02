@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duty Scheduling</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .schedule-container {
+            margin-top: 30px;
+        }
+        .schedule-form {
+            margin-bottom: 20px;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <div class="container schedule-container">
+        <h1>Duty Scheduling</h1>
+        
+        <div class="schedule-form">
+            <form action="/api/schedules" method="POST">
+                <div class="form-group">
+                    <label for="busId">Bus ID</label>
+                    <input type="text" class="form-control" id="busId" name="busId" required>
+                </div>
+                <div class="form-group">
+                    <label for="crewId">Crew ID</label>
+                    <input type="text" class="form-control" id="crewId" name="crewId" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Schedule</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Existing Schedules</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Bus ID</th>
+                        <th>Crew ID</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows, replace with dynamic content -->
+                    <tr>
+                        <td>Bus-1</td>
+                        <td>Crew-1</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
