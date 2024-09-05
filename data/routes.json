@@ -1,0 +1,19 @@
+[
+    {
+      "route_id": 1,
+      "stops": [
+        {"stop_name": "Stop A", "latitude": 28.7041, "longitude": 77.1025},
+        {"stop_name": "Stop B", "latitude": 28.7042, "longitude": 77.1030},
+        {"stop_name": "Stop C", "latitude": 28.7043, "longitude": 77.1035}
+      ]
+    },
+    {
+      "route_id": 2,
+      "stops": [
+        {"stop_name": "Stop D", "latitude": 28.7044, "longitude": 77.1040},
+        {"stop_name": "Stop E", "latitude": 28.7045, "longitude": 77.1045},
+        {"stop_name": "Stop F", "latitude": 28.7046, "longitude": 77.1050}
+      ]
+    }
+  ]
+  

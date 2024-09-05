@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duty Scheduling Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            font-family: 'poppins'
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            overflow: auto;
+        }
+
+        .gradient-background {
+            height: 100vh;
+            background: linear-gradient(45deg, #6d52ac, #105e62, #ac2bd3, #43065d, #5792f3);
+            background-size: 500% 500%;
+            animation: gradientAnimation 5s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            50% {
+                background-position: 100% 100%;
+            }
+
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .container {
+            /* max-width: 1200px; */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .report-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        table th,
+        table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn-primary {
+            background-color: #6610f2;
+            border-color: #6610f2;
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #520dc2;
+            border-color: #520dc2;
+        }
+
+        /* Add Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .report-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="font-weight: 700;">&#10094; Route Runner</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/api/schedules">Schedules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/api/report">Report</a>
+                    </li>
+                </ul>
+                <span class="navbar-text-end">
+                    <a class="btn btn-primary" href="/api/signup">Sign Up</a>
+                </span>
+            </div>
+        </div>
+    </nav>
+    <div class="gradient-background">
+        <div class="container" style="height: 90vh;margin-top:10% ;">
+            <!-- <a href="/"
+                style="color: rgb(255, 255, 255);border: 2px solid white;padding: 5px;border-radius: 3px;float: left;text-decoration: none;">&#8592;
+                Home</a>
+            <h1>Duty Scheduling Report</h1> -->
+
+            <div class="report-container">
+                <h2 style="color: #333;">All Routes and Schedules</h2>
+                <table style="color: black;">
+                    <tr>
+                        <th>Bus ID</th>
+                        <th>Crew ID</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                    </tr>
+                    <% schedules.forEach(function(schedule) { %>
+                        <tr>
+                            <td>
+                                <%= schedule.busId %>
+                            </td>
+                            <td>
+                                <%= schedule.crewId %>
+                            </td>
+                            <td>
+                                <%= schedule.startTime %>
+                            </td>
+                            <td>
+                                <%= schedule.endTime %>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </table>
+
+                <h2 style="color: #333;">Routes</h2>
+                <table style="color: black;">
+                    <tr>
+                        <th>Route Name</th>
+                        <th>Start Location</th>
+                        <th>End Location</th>
+                    </tr>
+                    <% routes.forEach(function(route) { %>
+                        <tr>
+                            <td>
+                                <%= route.routename %>
+                            </td>
+                            <td>
+                                <%= route.start %>
+                            </td>
+                            <td>
+                                <%= route.end %>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            fetch('/api/schedules')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    let reportBody = '';
+                    data.forEach(schedule => {
+                        reportBody += `
+                            <tr>
+                                <td>${schedule.busId}</td>
+                                <td>${schedule.crewId}</td>
+                                <td>${schedule.route}</td>
+                                <td>${schedule.startTime}</td>
+                                <td>${schedule.endTime}</td>
+                            </tr>
+                        `;
+                    });
+                    $('#report-body').html(reportBody);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+[
+    {"route_id": 1, "departure_time": "08:00", "arrival_time": "08:30"},
+    {"route_id": 1, "departure_time": "09:00", "arrival_time": "09:30"},
+    {"route_id": 2, "departure_time": "08:15", "arrival_time": "08:45"},
+    {"route_id": 2, "departure_time": "09:15", "arrival_time": "09:45"}
+  ]
+  
